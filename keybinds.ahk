@@ -25,12 +25,6 @@ closeCurrentDesktop() {
     Send #^{F4}
 }
 
-openDesktops(desktopNum) {
-    loop, desktopNum {
-        Send #^d
-    }
-}
-
 nextDesktop() {
     if (desktopCurrent < desktopMax) {
         if (desktopCurrent + 1 > desktopCount) {
