@@ -1,24 +1,22 @@
-﻿#SingleInstance Force
-#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
-#KeyHistory 0 ; Ensures user privacy when debugging is not needed
-; #Warn  ; Enable warnings to assist with detecting common errors.
-SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
-SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
+﻿#Requires AutoHotkey v2.0-rc.2 64-bit
+#SingleInstance Force
+
+WinHide "ahk_class Shell_TrayWnd"
 
 closeCurrentDesktop() {
-    Send #^{F4}
+    Send "#^{F4}"
 }
 
 newDesktop() {
-    Send #^d
+    Send "#^d"
 }
 
 nextDesktop() {
-    Send #^{Right}
+    Send "#^{Right}"
 }
 
 prevDesktop() {
-    Send #^{Left}
+    Send "#^{Left}"
 }
 
 ; Switch to next/previous desktop
@@ -28,15 +26,20 @@ prevDesktop() {
 #d::newDesktop() ; Open new desktop
 #+d::closeCurrentDesktop() ; Close current desktop
 
-#w::WinClose, A
+#+c::WinClose "A"
 
-#f::Run, firefox
-#+f::Run, "firefox" "-private-window"
+#f::Run "firefox"
+#+f::Run '"firefox" "-private-window"'
 
-#Enter::Run, taskmgr
-#+Enter::Run, wt
+#Enter::Run "taskmgr"
+#+Enter::Run "wt"
 
-; debugPrint() {
-;     MsgBox % "Desktop - Count: " . desktopCount . " Current: " . desktopCurrent
-; }
-; #+r::debugPrint()
+#t::
+{
+	WinHide "ahk_class Shell_TrayWnd"
+}
+
+#+t::
+{
+	WinShow "ahk_class Shell_TrayWnd"
+}
